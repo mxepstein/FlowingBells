@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bell Sounds</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      width: 160px;
+    }
+
+    .wrapper {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      float: right;
+      width: 120px;
+    }
+
+    .label {
+      float: left;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #07175a;
+      color: #FADA00;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      width: 120px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+
+    <div class="dropdown">
+      <div clas="label">Minute Bell</div>
+      <select id="minuteBell">
+        <option value="alarm">Alarm</option>
+        <option value="alternating">Alternating</option>
+        <option value="beeps">Beeps</option>
+        <option value="gentle">Gentle</option>
+        <option value="tone">Tone</option>
+        <option value="train">Train</option>
+      </select>
+    </div>
+
+    <div class="dropdown">
+      <div clas="label">Start Bell</div>
+      <select id="startBell">
+        <option value="alarm">Alarm</option>
+        <option value="alternating">Alternating</option>
+        <option value="beeps">Beeps</option>
+        <option value="gentle">Gentle</option>
+        <option value="tone">Tone</option>
+        <option value="train">Train</option>
+      </select>
+    </div>
+
+    <div class="dropdown">
+      <div clas="label">End Bell</div>
+      <select id="endBell">
+        <option value="alarm">Alarm</option>
+        <option value="alternating">Alternating</option>
+        <option value="beeps">Beeps</option>
+        <option value="gentle">Gentle</option>
+        <option value="tone">Tone</option>
+        <option value="train">Train</option>
+      </select>
+    </div>
+
+
+
+
+    <div id="status"></div>
+    <button id="save">Save</button>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+
+</html>

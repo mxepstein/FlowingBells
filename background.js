@@ -1,4 +1,15 @@
-chrome.runtime.onStartup.addListener(details => {
+//GCHANGE
+chrome.runtime.onInstalled.addListener(details => {
+
+
+ chrome.storage.sync.set({
+      chosenMinuteBell: 'alternating',
+      chosenStartBell: 'alarm',
+      chosenEndBell: 'train'
+    }
+  );
+
+
   const now = new Date();
   const currentTime = now.getHours() * 60 + now.getMinutes() + now.getSeconds()/60;  
 
@@ -43,7 +54,7 @@ chrome.runtime.onStartup.addListener(details => {
   if (period6Warning < 0) { period6Warning += 1440; }
   if (period6Start < 0)   { period6Start += 1440; }
   if (period6End < 0)     { period6End += 1440; }
-
+//GCHANGE
   chrome.alarms.create("bell0End", { delayInMinutes: 0.05, periodInMinutes: 1440 });
   chrome.alarms.create("bell1Warning", { delayInMinutes: period1Warning, periodInMinutes: 1440 });
   chrome.alarms.create("bell1Start", { delayInMinutes: period1Start, periodInMinutes: 1440 });
@@ -70,9 +81,9 @@ chrome.runtime.onStartup.addListener(details => {
 
 chrome.alarms.onAlarm.addListener((alarm) => {
   const timestamp = new Date().getTime();
-  const dayOfWeek = newDate().getDay();
-
-  if(dayOfWeek==0 || dayOfWeek==6){
+  const dayOfWeek = new Date().getDay();
+//GCHANGE
+  if(dayOfWeek==6 || dayOfWeek==6){
       console.log("Weekend!");
   }else
   if (alarm.name === "bell1Warning"|| 
@@ -82,7 +93,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
       alarm.name === "bell5Warning"|| 
       alarm.name === "bell6Warning"   ){
           console.log(alarm.name+" at "+timestamp);
-          chrome.windows.create({url:"minuteBell.html",focused:true,height:80,width:1},closeWindow);
+          chrome.windows.create({url:"minuteBell.html",focused:true,height:500,width:1},closeWindow);
   }else 
   if (alarm.name === "bell0End" || 
       alarm.name === "bell1End" || 
@@ -93,7 +104,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
       alarm.name === "bell5End" || 
       alarm.name === "bell6End"  ){
           console.log(alarm.name+" at "+timestamp);
-          chrome.windows.create({url:"bellBell.html",focused:true,height:80,width:1},closeWindow);
+          chrome.windows.create({url:"endBell.html",focused:true,height:500,width:1},closeWindow);
   }else
   if (alarm.name === "bell1Start" || 
       alarm.name === "bell2Start" || 
@@ -102,11 +113,11 @@ chrome.alarms.onAlarm.addListener((alarm) => {
       alarm.name === "bell5Start" || 
       alarm.name === "bell6Start"  ) {
           console.log(alarm.name+" at "+timestamp);
-          chrome.windows.create({url:"bellBell.html",focused:true,height:80,width:1},closeWindow);
+          chrome.windows.create({url:"startBell.html",focused:true,height:500,width:1},closeWindow);
     }
 });
 
 function closeWindow(trackWindow) {
-  setTimeout(function() {chrome.windows.remove(trackWindow.id);}, 4500); //Open window and play sound for 4.5 seconds
+  setTimeout(function() {chrome.windows.remove(trackWindow.id);}, 9500); //Open window and play sound for 4.5 seconds
 };
 
