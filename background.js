@@ -54,8 +54,8 @@ chrome.runtime.onInstalled.addListener(details => {
   if (period6Warning < 0) { period6Warning += 1440; }
   if (period6Start < 0)   { period6Start += 1440; }
   if (period6End < 0)     { period6End += 1440; }
-//GCHANGE
-  chrome.alarms.create("bell0End", { delayInMinutes: 0.05, periodInMinutes: 1440 });
+
+  chrome.alarms.create("bell0End", { delayInMinutes: period0End, periodInMinutes: 1440 });
   chrome.alarms.create("bell1Warning", { delayInMinutes: period1Warning, periodInMinutes: 1440 });
   chrome.alarms.create("bell1Start", { delayInMinutes: period1Start, periodInMinutes: 1440 });
   chrome.alarms.create("bell1End", { delayInMinutes: period1End, periodInMinutes: 1440 });
@@ -83,7 +83,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
   const timestamp = new Date().getTime();
   const dayOfWeek = new Date().getDay();
 //GCHANGE
-  if(dayOfWeek==6 || dayOfWeek==6){
+  if(dayOfWeek==0 || dayOfWeek==6){
       console.log("Weekend!");
   }else
   if (alarm.name === "bell1Warning"|| 
