@@ -12,8 +12,9 @@ const saveOptions = () => {
 			chosenVolume: volume
 		},
 		() => {
+		//SAVE BUTTON WAS REMOVED
 			// Update status to let user know options were saved.
-			//SAVE BUTTON WAS REMOVED
+
 			/*
 			const status = document.getElementById('status');
 			status.textContent = 'Options saved.';
@@ -21,7 +22,7 @@ const saveOptions = () => {
 				status.textContent = '';
 			}, 750);
 			*/
-			////////
+		////////
 		}
 	);
 };
@@ -70,6 +71,7 @@ function playSound(soundFile) {
       }
 	audio = new Audio(soundFile);
 	var vol = document.getElementById('volume').value
+	console.log(vol);
 	audio.volume=vol/100;
 	audio.play();
 }
