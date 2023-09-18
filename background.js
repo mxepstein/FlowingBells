@@ -117,7 +117,13 @@ chrome.alarms.onAlarm.addListener((alarm) => {
     }
 });
 
+
 function closeWindow(trackWindow) {
+  try{
   setTimeout(function() {chrome.windows.remove(trackWindow.id);}, 9500); //Open window and play sound for 4.5 seconds
+  }
+  catch(s){
+    console.log("Error: No window to close");
+  }
 };
 
