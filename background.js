@@ -3,7 +3,8 @@ chrome.runtime.onInstalled.addListener(details => {
  chrome.storage.sync.set({
       chosenMinuteBell: 'alternating',
       chosenStartBell: 'alarm',
-      chosenEndBell: 'train'
+      chosenEndBell: 'alarm',
+      chosenVolume: 90
     }
   );
 
