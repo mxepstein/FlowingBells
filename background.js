@@ -8,26 +8,30 @@ chrome.runtime.onInstalled.addListener(details => {
     }
   );
 
-  var period0End        = 1695020400000+ 8  *60*60*1000  + 35 *60*1000;
-  var period1Warning    = 1695020400000+ 8  *60*60*1000  + 44 *60*1000;
-  var period1Start      = 1695020400000+ 8  *60*60*1000  + 45 *60*1000;
-  var period1End        = 1695020400000+ 9  *60*60*1000  + 40 *60*1000;
-  var period2Warning    = 1695020400000+ 9  *60*60*1000  + 46 *60*1000;
-  var period2Start      = 1695020400000+ 9  *60*60*1000  + 47 *60*1000;
-  var period2End        = 1695020400000+ 10 *60*60*1000  + 47 *60*1000;
-  var period3Warning    = 1695020400000+ 10 *60*60*1000  + 53 *60*1000;
-  var period3Start      = 1695020400000+ 10 *60*60*1000  + 54 *60*1000;
-  var period3End        = 1695020400000+ 11 *60*60*1000  + 49 *60*1000;
-  var periodLunchEnd    = 1695020400000+ 12 *60*60*1000  + 24 *60*1000;
-  var period4Warning    = 1695020400000+ 12 *60*60*1000  + 30 *60*1000;
-  var period4Start      = 1695020400000+ 12 *60*60*1000  + 31 *60*1000;
-  var period4End        = 1695020400000+ 13 *60*60*1000  + 26 *60*1000;
-  var period5Warning    = 1695020400000+ 13 *60*60*1000  + 32 *60*1000;
-  var period5Start      = 1695020400000+ 13 *60*60*1000  + 33 *60*1000;
-  var period5End        = 1695020400000+ 14 *60*60*1000  + 28 *60*1000;
-  var period6Warning    = 1695020400000+ 14 *60*60*1000  + 34 *60*1000;
-  var period6Start      = 1695020400000+ 14 *60*60*1000  + 35 *60*1000;
-  var period6End        = 1695020400000+ 15 *60*60*1000  + 30 *60*1000;
+
+const midnightMillis = new Date().setHours(0, 0, 0, 0); // Milliseconds since midnight today
+
+
+  var period0End        = midnightMillis+ 8  *60*60*1000  + 35 *60*1000;
+  var period1Warning    = midnightMillis+ 8  *60*60*1000  + 44 *60*1000;
+  var period1Start      = midnightMillis+ 8  *60*60*1000  + 45 *60*1000;
+  var period1End        = midnightMillis+ 9  *60*60*1000  + 40 *60*1000;
+  var period2Warning    = midnightMillis+ 9  *60*60*1000  + 46 *60*1000;
+  var period2Start      = midnightMillis+ 9  *60*60*1000  + 47 *60*1000;
+  var period2End        = midnightMillis+ 10 *60*60*1000  + 47 *60*1000;
+  var period3Warning    = midnightMillis+ 10 *60*60*1000  + 53 *60*1000;
+  var period3Start      = midnightMillis+ 10 *60*60*1000  + 54 *60*1000;
+  var period3End        = midnightMillis+ 11 *60*60*1000  + 49 *60*1000;
+  var periodLunchEnd    = midnightMillis+ 12 *60*60*1000  + 24 *60*1000;
+  var period4Warning    = midnightMillis+ 12 *60*60*1000  + 30 *60*1000;
+  var period4Start      = midnightMillis+ 12 *60*60*1000  + 31 *60*1000;
+  var period4End        = midnightMillis+ 13 *60*60*1000  + 26 *60*1000;
+  var period5Warning    = midnightMillis+ 13 *60*60*1000  + 32 *60*1000;
+  var period5Start      = midnightMillis+ 13 *60*60*1000  + 33 *60*1000;
+  var period5End        = midnightMillis+ 14 *60*60*1000  + 28 *60*1000;
+  var period6Warning    = midnightMillis+ 14 *60*60*1000  + 34 *60*1000;
+  var period6Start      = midnightMillis+ 14 *60*60*1000  + 35 *60*1000;
+  var period6End        = midnightMillis+ 15 *60*60*1000  + 30 *60*1000;
 
   chrome.alarms.create("bell0End", {when: period0End, periodInMinutes: 1440 });
   chrome.alarms.create("bell1Warning", {when: period1Warning, periodInMinutes: 1440 });
