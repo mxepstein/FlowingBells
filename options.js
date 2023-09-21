@@ -27,14 +27,13 @@ const saveOptions = () => {
 	);
 };
 
-// Restores select box and checkbox state using the preferences
-// stored in chrome.storage.
+//Get the saved values and show them on options page
 const restoreOptions = () => {
 	chrome.storage.sync.get({
 			chosenMinuteBell: "alternating",
 			chosenStartBell: "alarm",
 			chosenEndBell: "train",
-			chosenVolume: 75
+			chosenVolume: 90
 		},
 		(items) => {
 			document.getElementById('minuteBell').value = items.chosenMinuteBell;
@@ -45,26 +44,18 @@ const restoreOptions = () => {
 	);
 };
 
+//Add event Listeners
 document.addEventListener('DOMContentLoaded', restoreOptions);
 //SAVE BUTTON WAS REMOVED document.getElementById('save').addEventListener('click', saveOptions);
-
 document.getElementById('minuteBell').addEventListener('change', saveOptions);
 document.getElementById('startBell').addEventListener('change', saveOptions);
 document.getElementById('endBell').addEventListener('change', saveOptions);
 document.getElementById('volume').addEventListener('change', saveOptions);
 
-
-
-
-
-
-
-///////////////////////////
-///Sound on dropdown
+///Preview alarm sound on dropdown
 const dropdowns = document.querySelectorAll('select');
 let audio = null;
 
-// Function to play the selected sound
 function playSound(soundFile) {
 	  if (audio) {
         audio.pause(); // Pause any currently playing sound
@@ -87,3 +78,4 @@ dropdowns.forEach(dropdown => {
 		}
 	});
 });
+///End preview alarms sound on dropdown

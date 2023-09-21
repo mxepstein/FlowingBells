@@ -1,5 +1,6 @@
-//GCHANGE
+//Install Setup
 chrome.runtime.onInstalled.addListener(details => {
+ //Set Defaults
  chrome.storage.sync.set({
       chosenMinuteBell: 'alternating',
       chosenStartBell: 'alarm',
@@ -8,10 +9,8 @@ chrome.runtime.onInstalled.addListener(details => {
     }
   );
 
-
-const midnightMillis = new Date().setHours(0, 0, 0, 0); // Milliseconds since midnight today
-
-
+  //Define bell times
+  const midnightMillis = new Date().setHours(0, 0, 0, 0); // Milliseconds since midnight today
   var period0End        = midnightMillis+ 8  *60*60*1000  + 35 *60*1000;
   var period1Warning    = midnightMillis+ 8  *60*60*1000  + 44 *60*1000;
   var period1Start      = midnightMillis+ 8  *60*60*1000  + 45 *60*1000;
@@ -33,6 +32,30 @@ const midnightMillis = new Date().setHours(0, 0, 0, 0); // Milliseconds since mi
   var period6Start      = midnightMillis+ 14 *60*60*1000  + 35 *60*1000;
   var period6End        = midnightMillis+ 15 *60*60*1000  + 30 *60*1000;
 
+  //If install is happening after the bell, set the alarm for tomorrow
+  const now= new Date();
+  if(now>period0End) period0End+=1440*60*1000;
+  if(now>period1Warning) period1Warning+=1440*60*1000;
+  if(now>period1Start) period1Start+=1440*60*1000;
+  if(now>period1End) period1End+=1440*60*1000;
+  if(now>period2Warning) period2Warning+=1440*60*1000;
+  if(now>period2Start) period2Start+=1440*60*1000;
+  if(now>period2End) period2End+=1440*60*1000;
+  if(now>period3Warning) period3Warning+=1440*60*1000;
+  if(now>period3Start) period3Start+=1440*60*1000;
+  if(now>period3End) period3End+=1440*60*1000;
+  if(now>periodLunchEnd) periodLunchEnd+=1440*60*1000;
+  if(now>period4Warning) period4Warning+=1440*60*1000;
+  if(now>period4Start) periperiod4Startod0End+=1440*60*1000;
+  if(now>period4End) period4End+=1440*60*1000;
+  if(now>period5Warning) period5Warning+=1440*60*1000;
+  if(now>period5Start) period5Start+=1440*60*1000;
+  if(now>period5End) period5End+=1440*60*1000;
+  if(now>period6Warning) period6Warning+=1440*60*1000;
+  if(now>period6Start) period6Start+=1440*60*1000;
+  if(now>period6End) period6End+=1440*60*1000;
+
+  //Create the alarms
   chrome.alarms.create("bell0End", {when: period0End, periodInMinutes: 1440 });
   chrome.alarms.create("bell1Warning", {when: period1Warning, periodInMinutes: 1440 });
   chrome.alarms.create("bell1Start", {when: period1Start, periodInMinutes: 1440 });
@@ -56,10 +79,12 @@ const midnightMillis = new Date().setHours(0, 0, 0, 0); // Milliseconds since mi
 });
 
 
-
+//Ring alarms when it is time
 chrome.alarms.onAlarm.addListener((alarm) => {
-  const dayOfWeek = new Date().getDay();
-
+  const currentDate = new Date();
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short' };
+  const formattedDate = currentDate.toLocaleString(undefined, options);
+  const dayOfWeek = currentDate.getDay();
   if(dayOfWeek==0 || dayOfWeek==6){
       console.log("Weekend!");
   }else
@@ -69,6 +94,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
       alarm.name === "bell4Warning"|| 
       alarm.name === "bell5Warning"|| 
       alarm.name === "bell6Warning"   ){
+          console.log(alarm.name +" - "+formattedDate)
           chrome.windows.create({url:"minuteBell.html",focused:true,height:500,width:1},closeWindow);
   }else 
   if (alarm.name === "bell0End" || 
@@ -79,7 +105,8 @@ chrome.alarms.onAlarm.addListener((alarm) => {
       alarm.name === "bell4End" || 
       alarm.name === "bell5End" || 
       alarm.name === "bell6End"  ){
-          chrome.windows.create({url:"endBell.html",focused:true,height:500,width:1},closeWindow);
+        console.log(alarm.name +" - "+formattedDate)
+        chrome.windows.create({url:"endBell.html",focused:true,height:500,width:1},closeWindow);
   }else
   if (alarm.name === "bell1Start" || 
       alarm.name === "bell2Start" || 
@@ -87,18 +114,19 @@ chrome.alarms.onAlarm.addListener((alarm) => {
       alarm.name === "bell4Start" || 
       alarm.name === "bell5Start" || 
       alarm.name === "bell6Start"  ) {
+          console.log(alarm.name +" - "+formattedDate)
           chrome.windows.create({url:"startBell.html",focused:true,height:500,width:1},closeWindow);
     }
 });
 
-
+//Help close the alarm pop up window
 function closeWindow(trackWindow) {
   setTimeout(function() {
     try{
       chrome.windows.remove(trackWindow.id);
-    }catch{
+    }catch(e){
        console.log("Error: No window to close");
     }
-  }, 9500); //Open window and play sound for 4.5 seconds
+  }, 8500); //Open window and play sound for 8.5 seconds
 };
 
